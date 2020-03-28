@@ -17,7 +17,7 @@ public class WordController {
     @GetMapping("/words")
     public String wordList(Model model){
         model.addAttribute("allWords", wordService.allWords());
-        return "admin/words";
+        return "words";
     }
 
     @PostMapping("/words")
