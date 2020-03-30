@@ -1,5 +1,8 @@
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    xmlns:form="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/xhtml"
+        xmlns:form="http://www.w3.org/1999/xhtml"
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
         <!DOCTYPE html>
         <html>
@@ -18,7 +21,7 @@
         <th>ID</th>
         <th>Word</th>
         <th>New word</th>
-        <th>Action</th>
+        <th>Delete</th>
         </thead>
         <c:forEach items="${allWords}" var="word">
             <tr>
@@ -30,10 +33,15 @@
             <%--</td>--%>
 
             <td>
+            <%--<form:form action="${pageContext.request.contextPath}/words" method="POST" modelAttribute="words">--%>
+                <%--<form:input path="word" />--%>
+                <%--<input type="submit" value="save"/>--%>
+            <%--</form:form>--%>
+
             <form action="${pageContext.request.contextPath}/words" method="post">
-            <input type="text" name="wordId" value="${word.id}"/>
-            <input type="submit" name="action" value="save"/>
-            <button type="submit">Add</button>
+            <input type="text" name="wordId" value=""/>
+            <input type="hidden" name="action" value="save"/>
+            <button type="submit">Save</button>
             </form>
 
             </td>
@@ -52,6 +60,20 @@
         </c:forEach>
         </table>
 
+<%--        <div>
+        <form:form method="POST" modelAttribute="wordForm">
+            <h2>Add new word</h2>
+            <div>
+            <form:input type="text" path="word" placeholder="Word"
+                        autofocus="true"></form:input>
+            <form:errors path="word"></form:errors>
+            ${wordError}
+            </div>
+
+            <button type="submit">Добавить слово</button>
+        </form:form>
+        </div>
+--%>
         <a href="/">Главная</a>
         </div>
         </body>

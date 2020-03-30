@@ -16,6 +16,10 @@ public class Word {
     public Word(){
     }
 
+    public Word(String word){
+        setWord(word);
+    }
+
     public Long getId() {
         return id;
     }

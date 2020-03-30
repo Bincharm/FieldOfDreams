@@ -31,6 +31,7 @@ public class WordService {
 
 //        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
 //        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         wordRepository.save(word);
         return true;
     }
