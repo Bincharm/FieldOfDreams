@@ -8,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -27,13 +24,9 @@ public class WordController {
         return "words";
     }
 
-    @PostMapping("/words/delete")
-    public String  deleteWord(@RequestParam(required = true, defaultValue = "" ) Long wordId,
-                              @RequestParam(required = true, defaultValue = "" ) String action,
-                              Model model) {
-        if (action.equals("delete")){
-            wordService.deleteWord(wordId);
-        }
+    @GetMapping("/words/delete")
+    public String  deleteWord(@RequestParam(required = true, name = "wordId" ) Long wordId) {
+        wordService.deleteWord(wordId);
         return "redirect:/words";
     }
 

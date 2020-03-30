@@ -1,5 +1,3 @@
-    xmlns:form="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/xhtml"
-        xmlns:form="http://www.w3.org/1999/xhtml"
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -39,7 +37,7 @@
             <%--</form:form>--%>
 
             <form action="${pageContext.request.contextPath}/words" method="post">
-            <input type="text" name="wordId" value=""/>
+            <input type="text" name="word"/>
             <input type="hidden" name="action" value="save"/>
             <button type="submit">Save</button>
             </form>
@@ -47,10 +45,9 @@
             </td>
 
             <td>
-            <form action="${pageContext.request.contextPath}/words" method="post">
-            <input type="hidden" name="wordId" value="${word.id}"/>
-            <input type="hidden" name="action" value="delete"/>
-            <button type="submit">Delete</button>
+            <form action="${pageContext.request.contextPath}/words/delete" method="delete">
+                <input type="hidden" name="wordId" value="${word.id}"/>
+                <button type="submit">Delete</button>
             </form>
 
             </td>
