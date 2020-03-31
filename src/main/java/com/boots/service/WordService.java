@@ -2,6 +2,7 @@ package com.boots.service;
 
 import com.boots.entity.Word;
 import com.boots.repository.WordRepository;
+import com.boots.repository.dao.LetterStateDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,11 @@ public class WordService {
 
     @Autowired
     WordRepository wordRepository;
+    @Autowired
+    LetterStateDao letterStateDao;
 
     public List<Word> allWords(){
+        System.err.println(letterStateDao.getLastTry(1L));
         return wordRepository.findAll();
     }
 
