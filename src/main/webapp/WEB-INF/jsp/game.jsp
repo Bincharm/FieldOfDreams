@@ -1,0 +1,116 @@
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+        <%@page import="java.util.Optional" %>
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Field of dreams</title>
+            <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="../../resources/js/main.js"></script>
+        </head>
+
+        <body>
+        <div>
+        <p>
+
+        <%--<table>
+        <thead>
+        <th>ID</th>
+        <th>Word</th>
+        <th>Delete</th>
+        </thead>
+        <c:forEach items="${allWords}" var="word">
+            <tr>
+            <td>${word.id}</td>
+            <td>${word.word}</td>
+
+            <td>
+            <form action="${pageContext.request.contextPath}/words/delete" method="delete">
+            <input type="hidden" name="wordId" value="${word.id}"/>
+            <button type="submit">Delete</button>
+            </form>
+
+            </td>
+
+
+            </tr>
+        </c:forEach>
+        </table>
+--%>
+
+        <table>
+        <thead>
+        <th>New game</th>
+        </thead>
+
+        <tr>
+        <td>
+        <form action="${pageContext.request.contextPath}/game" method="post">
+        <input type="hidden" name="game"/>
+        <input type="hidden" name="action" value="save"/>
+        <button type="submit">Start new game</button>
+        </form>
+        </td>
+        </tr>
+
+        <tr>
+
+        <td>
+        ${wordLength}
+        </td>
+
+            <td>
+            ${wordId}
+            </td>
+
+        </tr>
+
+        </table>
+
+        <p>
+
+        <table id="encryptedWord">
+
+        <tr>
+            <%
+            int wLength;
+            if (request.getAttribute("wordLength") == null) wLength = 0;
+            else wLength = (int)request.getAttribute("wordLength");
+        %>
+            <%      for(int col=0; col<wLength; col++) { %>
+        <td style="height:20px; width:20px; text-align:center" id="col<%=col%>"> *
+        </td>
+            <% } %>
+        </tr>
+
+        </table>
+
+        <p>
+        <p>
+
+        <table>
+
+        <tr>
+        <td>
+<%--<3 ya--%>
+        <input type="text" name="letter" id="inputLetter"/>
+        <input type="hidden" name="wordId" value="${wordId}" id="wordId"/>
+        <input type="hidden" name="gameId" value="${gameId}" id="gameId"/>
+        <input type="hidden" name="action" value="saveLetter"/>
+        <button type="button" id="btnCheckLetter" onclick="checkLetter()">Enter a letter/word</button>
+
+        </td>
+        </tr>
+
+
+        </table>
+
+        <p id="winResult"></p>
+        <a href="/">Главная</a>
+        </div>
+        </body>
+        </html>

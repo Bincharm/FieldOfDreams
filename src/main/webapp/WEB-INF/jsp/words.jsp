@@ -6,7 +6,7 @@
         <html>
         <head>
         <meta charset="utf-8">
-        <title>Log in with your account</title>
+        <title>Add a new word for the game</title>
         <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
         </head>
 
@@ -18,7 +18,6 @@
         <thead>
         <th>ID</th>
         <th>Word</th>
-        <th>New word</th>
         <th>Delete</th>
         </thead>
         <c:forEach items="${allWords}" var="word">
@@ -30,19 +29,15 @@
             <%--<c:forEach items="${user.roles}" var="role">${role.name}; </c:forEach>--%>
             <%--</td>--%>
 
-            <td>
+            <%--<td>--%>
             <%--<form:form action="${pageContext.request.contextPath}/words" method="POST" modelAttribute="words">--%>
                 <%--<form:input path="word" />--%>
                 <%--<input type="submit" value="save"/>--%>
             <%--</form:form>--%>
 
-            <form action="${pageContext.request.contextPath}/words" method="post">
-            <input type="text" name="word"/>
-            <input type="hidden" name="action" value="save"/>
-            <button type="submit">Save</button>
-            </form>
 
-            </td>
+
+            <%--</td>--%>
 
             <td>
             <form action="${pageContext.request.contextPath}/words/delete" method="delete">
@@ -55,6 +50,23 @@
 
             </tr>
         </c:forEach>
+        </table>
+
+
+        <table>
+            <thead>
+                <th>New word</th>
+            </thead>
+
+            <tr>
+                <td>
+                    <form action="${pageContext.request.contextPath}/words" method="post">
+                    <input type="text" name="word"/>
+                    <input type="hidden" name="action" value="save"/>
+                    <button type="submit">Save</button>
+                    </form>
+                </td>
+            </tr>
         </table>
 
 <%--        <div>

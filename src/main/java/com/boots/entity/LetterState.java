@@ -1,6 +1,9 @@
 package com.boots.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "letter_state")
@@ -15,6 +18,10 @@ public class LetterState {
 
     @Column(name = "trial_number")
     private Integer trialNumber = 0;
+
+    @CreationTimestamp
+    @Column(name = "try_time")
+    private Timestamp tryTime;
 
     @Column(name = "is_correct")
     private Boolean isCorrect;
@@ -57,5 +64,21 @@ public class LetterState {
 
     public void setCorrect(Boolean correct) {
         isCorrect = correct;
+    }
+
+    public Timestamp getTryTime() {
+        return tryTime;
+    }
+
+    public void setTryTime(Timestamp tryTime) {
+        this.tryTime = tryTime;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
