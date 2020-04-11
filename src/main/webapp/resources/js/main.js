@@ -36,6 +36,7 @@ var checkLetter = function(){
                 if(isWin){
                     $("#winResult").html("Result: you win");
                     document.getElementById("btnCheckLetter").disabled = true;
+                    saveTrueWinResult(request.gameId);
                 }
             }
         }, this);
@@ -65,7 +66,7 @@ var checkLetter = function(){
                         $("#col" + i).html(c);
                     }
                     $("#winResult").html("Result: you win");
-
+                    saveTrueWinResult(request.gameId);
                 }
                 else if(data && !data.isWin) {
                     $("#winResult").html("Result: you lose \n" + data.wordFromDB);
@@ -76,4 +77,18 @@ var checkLetter = function(){
 
     }
     document.getElementById("inputLetter").value = null;
+}
+
+
+var saveTrueWinResult = function(request){
+    $.ajax({
+        type : "POST",
+        contentType : "application/json",
+        url : "/game/saveTrueWinResult",
+        data : JSON.stringify(request),
+        dataType : 'json',
+        success : function(data) {
+            console.log("****************" + data);
+        }
+    }, this);
 }

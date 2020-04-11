@@ -26,7 +26,7 @@ public class LetterState {
     @Column(name = "is_correct")
     private Boolean isCorrect;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
 

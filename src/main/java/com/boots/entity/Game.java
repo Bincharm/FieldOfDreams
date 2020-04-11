@@ -1,6 +1,9 @@
 package com.boots.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "t_game")
@@ -17,6 +20,13 @@ public class Game {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @CreationTimestamp
+    @Column(name = "creation_time")
+    private Timestamp creationTime;
+
+    @Column(name = "is_win")
+    private Boolean isWin;
 
     public Game(){
     }
@@ -43,5 +53,21 @@ public class Game {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Timestamp getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Timestamp creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public Boolean getWin() {
+        return isWin;
+    }
+
+    public void setWin(Boolean win) {
+        isWin = win;
     }
 }

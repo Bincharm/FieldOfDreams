@@ -1,13 +1,16 @@
 package com.boots.controller;
+import com.boots.entity.Role;
+import com.boots.repository.RoleRepository;
 import com.boots.service.UserService;
 import com.boots.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AdminController {
@@ -19,6 +22,17 @@ public class AdminController {
         model.addAttribute("allUsers", userService.allUsers());
         return "admin";
     }
+    @GetMapping("/info")
+    public @ResponseBody String getInfo(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            System.out.println("User has authorities: " + userDetails.getAuthorities());
+            return userDetails.getAuthorities().toString();
+        }
+        return "Error";
+    }
+
 
 
     @PostMapping("/admin")

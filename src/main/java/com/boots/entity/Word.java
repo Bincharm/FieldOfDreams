@@ -13,6 +13,9 @@ public class Word {
     @Column(name = "word")
     private String word;
 
+    @Column(name = "task")
+    private String task;
+
     public Word(){
     }
 
@@ -34,5 +37,13 @@ public class Word {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
     }
 }

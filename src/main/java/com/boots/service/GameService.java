@@ -2,20 +2,19 @@ package com.boots.service;
 
 import com.boots.entity.Game;
 import com.boots.repository.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class GameService {
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Autowired
     GameRepository gameRepository;
 
     public List<Game> findAll() {
@@ -45,9 +44,10 @@ public class GameService {
         return false;
     }
 
-    public List<Game> wordgtList(Long gameId) {
-        return em.createQuery("SELECT g FROM Game g WHERE g.id > :paramId", Game.class)
-                .setParameter("paramId", gameId).getResultList();
+    @Transactional
+    public int saveTrueWinResult(Long gameId){
+        //return gameRepository.updateIsWinTrueByGameIdNative(gameId);
+        return gameRepository.updateIsWinTrueByGameId(gameId);
     }
 
 }

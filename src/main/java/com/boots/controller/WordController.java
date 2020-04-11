@@ -30,26 +30,6 @@ public class WordController {
         return "redirect:/words";
     }
 
-//    @PostMapping("/words")
-//    public String saveWord(@Valid @ModelAttribute("word")Word word, BindingResult result, ModelMap model){
-//        if(result.hasErrors()){
-//            return "error";
-//        }
-//        model.addAttribute("word", word.getWord());
-//        wordService.saveWord(word);
-//        return "words";
-//    }
-
-//    @PostMapping("/words")
-//    public String  saveWord(@RequestParam(required = true, defaultValue = "" ) String word,
-//                              @RequestParam(required = true, defaultValue = "" ) String action,
-//                              Model model) {
-//        if (action.equals("save")){
-//            wordService.saveWord(new Word(word));
-//        }
-//        return "redirect:/words";
-//    }
-
     @PostMapping("/words")
     public String saveWord(@ModelAttribute("wordForm") @Valid Word wordForm, BindingResult bindingResult, Model model) {
 
@@ -62,7 +42,6 @@ public class WordController {
             return "words";
         }
 
-//        model.addAttribute("words", new Word());
 
         return "redirect:/words";
     }

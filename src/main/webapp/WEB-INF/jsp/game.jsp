@@ -11,39 +11,17 @@
             <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
             <script src="../../resources/js/main.js"></script>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         </head>
 
         <body>
         <div>
         <p>
 
-        <%--<table>
-        <thead>
-        <th>ID</th>
-        <th>Word</th>
-        <th>Delete</th>
-        </thead>
-        <c:forEach items="${allWords}" var="word">
-            <tr>
-            <td>${word.id}</td>
-            <td>${word.word}</td>
 
-            <td>
-            <form action="${pageContext.request.contextPath}/words/delete" method="delete">
-            <input type="hidden" name="wordId" value="${word.id}"/>
-            <button type="submit">Delete</button>
-            </form>
-
-            </td>
-
-
-            </tr>
-        </c:forEach>
-        </table>
---%>
-
-        <table>
-        <thead>
+        <table class="table">
+        <thead class="thead-dark">
         <th>New game</th>
         </thead>
 
@@ -57,32 +35,20 @@
         </td>
         </tr>
 
-        <tr>
-
-        <td>
-        ${wordLength}
-        </td>
-
-            <td>
-            ${wordId}
-            </td>
-
-        </tr>
 
         </table>
 
-        <p>
+            <p>${wordTask}</p>
 
-        <table id="encryptedWord">
-
-        <tr>
-            <%
+        <table class="table" id="encryptedWord">
+         <tr>
+         <%
             int wLength;
             if (request.getAttribute("wordLength") == null) wLength = 0;
             else wLength = (int)request.getAttribute("wordLength");
-        %>
+         %>
             <%      for(int col=0; col<wLength; col++) { %>
-        <td style="height:20px; width:20px; text-align:center" id="col<%=col%>"> *
+        <td style="height:20px; width:10px; text-align:center" id="col<%=col%>"> *
         </td>
             <% } %>
         </tr>

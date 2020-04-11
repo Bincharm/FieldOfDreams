@@ -4,9 +4,13 @@ import com.boots.entity.Role;
 import com.boots.entity.User;
 import com.boots.repository.RoleRepository;
 import com.boots.repository.UserRepository;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,15 +24,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Service
 public class UserService implements UserDetailsService {
+
     @PersistenceContext
     private EntityManager em;
-    @Autowired
     UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
+    RoleService roleService;
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -40,6 +44,19 @@ public class UserService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public boolean checkRole(String roleName) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            for(GrantedAuthority r : userDetails.getAuthorities()){
+                if (r.getAuthority().equals(roleName)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public User getByUsername(String username) {
@@ -61,6 +78,10 @@ public class UserService implements UserDetailsService {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
     }
+    public User save(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
 
     public List<User> allUsers() {
         return userRepository.findAll();
@@ -72,8 +93,8 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             return false;
         }
-
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        Role userRole = roleService.findRoleByName("ROLE_USER");
+        user.setRoles(Collections.singleton(userRole));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
