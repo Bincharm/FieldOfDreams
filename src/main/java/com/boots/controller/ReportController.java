@@ -4,6 +4,9 @@ import com.boots.model.ReportUserModel;
 import com.boots.model.ReportWordModel;
 import com.boots.service.ReportService;
 import com.boots.service.UserService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +18,13 @@ import javax.validation.ReportAsSingleViolation;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("/report")
 public class ReportController {
 
-    @Autowired
-    private ReportService reportService;
-    @Autowired
-    private UserService userService;
+    ReportService reportService;
+    UserService userService;
 
     @GetMapping
     public String findAllUsersGamesNative(Model model){

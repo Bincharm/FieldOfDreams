@@ -7,6 +7,9 @@ import com.boots.model.WordCheckResponseModel;
 import com.boots.service.GameService;
 import com.boots.service.UserService;
 import com.boots.service.WordService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +21,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("/game")
 public class GameController {
 
-    @Autowired
-    private GameService gameService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private WordService wordService;
+    GameService gameService;
+    UserService userService;
+    WordService wordService;
 
     @GetMapping
     public String gameList(Model model) {
@@ -53,7 +53,7 @@ public class GameController {
         Word randomWord = wordService.getRandomWord();
         gameForm.setUser(userService.getCurrentUser());
         gameForm.setWord(randomWord);
-        gameForm.setWin(false);
+        gameForm.setIsWin(false);
 
         Game game =gameService.saveGame(gameForm);
         if (game == null) {

@@ -2,6 +2,9 @@ package com.boots.controller;
 
 import com.boots.entity.User;
 import com.boots.service.UserService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RegistrationController {
 
-    @Autowired
-    private UserService userService;
+    UserService userService;
 
     @GetMapping("/registration")
     public String registration(Model model) {

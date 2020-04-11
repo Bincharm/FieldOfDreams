@@ -1,5 +1,6 @@
 package com.boots.service;
 
+import com.boots.config.BCryptSingleton;
 import com.boots.entity.Role;
 import com.boots.entity.User;
 import com.boots.repository.RoleRepository;
@@ -7,6 +8,7 @@ import com.boots.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,9 +33,9 @@ public class UserService implements UserDetailsService {
 
     @PersistenceContext
     private EntityManager em;
+
     UserRepository userRepository;
     RoleService roleService;
-    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -79,7 +81,7 @@ public class UserService implements UserDetailsService {
         return userFromDb.orElse(new User());
     }
     public User save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(BCryptSingleton.getInstance().encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -95,7 +97,7 @@ public class UserService implements UserDetailsService {
         }
         Role userRole = roleService.findRoleByName("ROLE_USER");
         user.setRoles(Collections.singleton(userRole));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(BCryptSingleton.getInstance().encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }

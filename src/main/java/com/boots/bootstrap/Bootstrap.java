@@ -1,5 +1,6 @@
 package com.boots.bootstrap;
 
+import com.boots.config.BCryptSingleton;
 import com.boots.entity.Role;
 import com.boots.entity.User;
 import com.boots.repository.UserRepository;
@@ -33,8 +34,7 @@ public class Bootstrap implements CommandLineRunner {
 
         User admin = userRepository.findByUsername("admin");
         if (admin == null) {
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            admin = new User("admin", bCryptPasswordEncoder.encode("123"));
+            admin = new User("admin", BCryptSingleton.getInstance().encode("123"));
             admin.setRoles(new HashSet<>(Arrays.asList(adminRole,userRole)));
             userRepository.save(admin);
         }

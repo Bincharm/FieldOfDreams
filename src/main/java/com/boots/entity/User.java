@@ -1,5 +1,6 @@
 package com.boots.entity;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,6 +8,12 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 
 @Entity
 @Table(name = "t_user")
@@ -23,8 +30,6 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public User() {
-    }
 
     public User(@Size(min = 2, message = "Не меньше 2 знаков") String username, @Size(min = 3, message = "Не меньше 3 знаков") String password) {
         this.username = username;

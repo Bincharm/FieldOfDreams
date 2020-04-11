@@ -1,6 +1,7 @@
 package com.boots.service;
 
 import com.boots.entity.Game;
+import com.boots.model.ReportUserModel;
 import com.boots.repository.GameRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,14 @@ public class GameService {
     public int saveTrueWinResult(Long gameId){
         //return gameRepository.updateIsWinTrueByGameIdNative(gameId);
         return gameRepository.updateIsWinTrueByGameId(gameId);
+    }
+
+    public List<ReportUserModel> findAllUsersGames(){
+        return gameRepository.findAllUsersGames();
+    }
+
+    public List<ReportUserModel> findUserGamesByUserId(Long userId){
+        return findUserGamesByUserId(userId);
     }
 
 }

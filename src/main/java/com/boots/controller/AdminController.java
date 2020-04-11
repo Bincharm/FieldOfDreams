@@ -3,6 +3,9 @@ import com.boots.entity.Role;
 import com.boots.repository.RoleRepository;
 import com.boots.service.UserService;
 import com.boots.service.WordService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminController {
-    @Autowired
-    private UserService userService;
+
+    UserService userService;
 
     @GetMapping("/admin")
     public String userList(Model model) {

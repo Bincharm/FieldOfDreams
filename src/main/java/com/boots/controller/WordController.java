@@ -2,6 +2,9 @@ package com.boots.controller;
 
 import com.boots.entity.Word;
 import com.boots.service.WordService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WordController {
 
-    @Autowired
-    private WordService wordService;
+    WordService wordService;
 
     @GetMapping("/words")
     public String wordList(Model model){

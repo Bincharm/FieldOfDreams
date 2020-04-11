@@ -1,6 +1,14 @@
 package com.boots.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 
 @Entity
 @Table(name = "t_word")
@@ -16,34 +24,9 @@ public class Word {
     @Column(name = "task")
     private String task;
 
-    public Word(){
-    }
 
     public Word(String word){
         setWord(word);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getWord() {
-        return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public String getTask() {
-        return task;
-    }
-
-    public void setTask(String task) {
-        this.task = task;
-    }
 }

@@ -7,6 +7,9 @@ import com.boots.model.LetterCheckModel;
 import com.boots.model.WordCheckResponseModel;
 import com.boots.repository.WordRepository;
 import com.boots.repository.dao.LetterStateDao;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +21,15 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WordService {
 
     @PersistenceContext
     private EntityManager em;
 
-    @Autowired
     WordRepository wordRepository;
-    @Autowired
     LetterStateService letterStateService;
-    @Autowired
-    LetterStateDao letterStateDao;
 
     public List<Word> allWords(){
 //        System.err.println(letterStateDao.getLastTry(1L));
@@ -90,7 +91,7 @@ public class WordService {
         LetterState letterState = new LetterState();
         letterState.setGame(game);
         letterState.setLetter(letterCheckModel.getLetter());
-        letterState.setCorrect(letterPositions.size() > 0);
+        letterState.setIsCorrect(letterPositions.size() > 0);
         letterStateService.saveLetterState(letterState);
 
         return letterPositions;
@@ -115,7 +116,7 @@ public class WordService {
         LetterState letterState = new LetterState();
         letterState.setGame(game);
         letterState.setLetter(letterCheckModel.getLetter());
-        letterState.setCorrect(response.getIsWin());
+        letterState.setIsCorrect(response.getIsWin());
         letterStateService.saveLetterState(letterState);
 
         return response;

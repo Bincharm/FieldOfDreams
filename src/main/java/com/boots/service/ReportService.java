@@ -4,6 +4,9 @@ import com.boots.model.ReportUserModel;
 import com.boots.model.ReportWordModel;
 import com.boots.repository.GameRepository;
 import com.boots.repository.ReportRepository;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,34 +16,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ReportService {
 
     @PersistenceContext
     private EntityManager em;
 
-    @Autowired
-    private GameRepository gameRepository;
+    GameService gameService;
 
-    @Autowired
-    private UserService userService;
+    UserService userService;
 
-
-
-    @Autowired
-    private LetterStateService letterStateService;
+    LetterStateService letterStateService;
 
     public List<ReportUserModel> findAllUsersGames(){
-        return gameRepository.findAllUsersGames();
+        return gameService.findAllUsersGames();
     }
 
     public List<ReportUserModel> findUserGamesByCurrentUser(){
-        return gameRepository.findUserGamesByUserId(userService.getCurrentUser().getId());
+        return gameService.findUserGamesByUserId(userService.getCurrentUser().getId());
     }
 
     public List<ReportWordModel> findAllGameAttemptsByGameId(Long gameId){
         return letterStateService.findAllGameAttemptsByGameId(gameId).stream()
                 .map(x -> ReportWordModel.builder()
-                        .isCorrect(x.getCorrect())
+                        .isCorrect(x.getIsCorrect())
                         .letter(x.getLetter())
                         .tryTime(x.getTryTime())
                         .build())
