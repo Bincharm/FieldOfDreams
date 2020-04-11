@@ -28,20 +28,6 @@
             <td>${word.id}</td>
             <td>${word.word}</td>
             <td>${word.task}</td>
-            <%--<td>${word.password}</td>--%>
-            <%--<td>--%>
-            <%--<c:forEach items="${user.roles}" var="role">${role.name}; </c:forEach>--%>
-            <%--</td>--%>
-
-            <%--<td>--%>
-            <%--<form:form action="${pageContext.request.contextPath}/words" method="POST" modelAttribute="words">--%>
-                <%--<form:input path="word" />--%>
-                <%--<input type="submit" value="save"/>--%>
-            <%--</form:form>--%>
-
-
-
-            <%--</td>--%>
 
             <td>
             <form action="${pageContext.request.contextPath}/words/delete" method="delete">
@@ -80,20 +66,6 @@
             </tr>
         </table>
 
-<%--        <div>
-        <form:form method="POST" modelAttribute="wordForm">
-            <h2>Add new word</h2>
-            <div>
-            <form:input type="text" path="word" placeholder="Word"
-                        autofocus="true"></form:input>
-            <form:errors path="word"></form:errors>
-            ${wordError}
-            </div>
-
-            <button type="submit">Добавить слово</button>
-        </form:form>
-        </div>
---%>
         <a href="/">Главная</a>
         </div>
         </body>

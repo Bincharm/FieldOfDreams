@@ -56,7 +56,7 @@ public class GameService {
     }
 
     public List<ReportUserModel> findUserGamesByUserId(Long userId){
-        return findUserGamesByUserId(userId);
+        return gameRepository.findUserGamesByUserId(userId);
     }
 
 }

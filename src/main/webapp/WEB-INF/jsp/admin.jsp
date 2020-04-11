@@ -14,10 +14,11 @@
 <body>
 <div>
   <table class="table table-striped table-hover">
-    <thead>
+    <thead class="thead-dark">
     <th>ID</th>
     <th>UserName</th>
     <th>Roles</th>
+    <th>Action</th>
     </thead>
     <c:forEach items="${allUsers}" var="user">
       <tr>
@@ -40,43 +41,7 @@
   </table>
   <p>
 
-  <table>
-    <thead>
-    <th>ID</th>
-    <th>Word</th>
-    <th>Password</th>
-    <th>Roles</th>
-    </thead>
-    <c:forEach items="${allWords}" var="word">
-      <tr>
-        <td>${word.id}</td>
-        <td>${word.word}</td>
-        <%--<td>${word.password}</td>--%>
-        <%--<td>--%>
-          <%--<c:forEach items="${user.roles}" var="role">${role.name}; </c:forEach>--%>
-        <%--</td>--%>
 
-        <td>
-          <form action="${pageContext.request.contextPath}/admin" method="post">
-            <input type="hidden" name="wordId" value="${word.id}"/>
-            <input type="hidden" name="action" value="save"/>
-            <button type="submit">Add</button>
-          </form>
-
-        </td>
-
-        <td>
-          <form action="${pageContext.request.contextPath}/admin" method="post">
-          <input type="hidden" name="wordId" value="${word.id}"/>
-          <input type="hidden" name="action" value="delete"/>
-          <button type="submit">Delete</button>
-          </form>
-
-        </td>
-
-      </tr>
-    </c:forEach>
-  </table>
 
   <a href="/">Главная</a>
 </div>
